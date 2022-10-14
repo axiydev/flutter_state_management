@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_state_management/page/main_screen/main_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,9 +21,10 @@ class MyApp extends StatelessWidget {
               text: '',
             ),
         '/other': (context) => const OtherView(),
-        '/micro': (context) => MicrosoftView()
+        '/micro': (context) => MicrosoftView(),
+        '/main': (context) => const MainScreen()
       },
-      home: MicrosoftView(),
+      home: const MainScreen(),
     );
   }
 }

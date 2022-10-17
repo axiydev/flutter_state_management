@@ -27,4 +27,21 @@ class MainProvider with ChangeNotifier implements MainProviderRepo {
     counter = 200;
     notifyListeners();
   }
+
+  Stream<String> get otherCount async* {
+    var other = 0;
+    while (other <= 30) {
+      await Future.delayed(const Duration(seconds: 1));
+      other = other + 1;
+      yield other.toString();
+    }
+  }
+}
+
+class AdditionalData {
+  static Future<int?> get getCount async {
+    final data = await Future.delayed(const Duration(seconds: 10))
+        .then((value) => 10000);
+    return data;
+  }
 }

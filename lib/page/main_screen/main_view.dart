@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_state_management/page/main_screen/main_provider.dart';
+import 'package:flutter_state_management/page/sub/count_screen.dart';
 import 'package:provider/provider.dart';
 
 class MainView extends StatefulWidget {
@@ -32,25 +33,68 @@ class _MainViewState extends State<MainView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Counter Page'),
+        title: Text('Counter Page $selectorMainCounter'),
       ),
       body: SafeArea(
         child: Center(
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            switchInCurve: Curves.bounceIn,
-            transitionBuilder: (child, animation) => ScaleTransition(
-              scale: animation,
-              child: child,
-            ),
-            child: Text(
-              selectorMainCounter.toString(),
-              key: ValueKey<String>('count $selectorMainCounter'),
-              style: const TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue),
-            ),
+          child: Column(
+            children: [
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                switchInCurve: Curves.bounceIn,
+                transitionBuilder: (child, animation) => ScaleTransition(
+                  scale: animation,
+                  child: child,
+                ),
+                child: Text(
+                  selectorMainCounter.toString(),
+                  key: ValueKey<String>('count $selectorMainCounter'),
+                  style: const TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
+                ),
+              ),
+              Consumer<String>(builder: (context, String count, _) {
+                return AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  switchInCurve: Curves.bounceIn,
+                  transitionBuilder: (child, animation) => ScaleTransition(
+                    scale: animation,
+                    child: child,
+                  ),
+                  child: Text(
+                    count,
+                    key: ValueKey<String>('count $count'),
+                    style: const TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                  ),
+                );
+              }),
+
+              const CountScreen()
+
+              // Consumer<int?>(builder: (context, int? count, _) {
+              //   return AnimatedSwitcher(
+              //     duration: const Duration(milliseconds: 300),
+              //     switchInCurve: Curves.bounceIn,
+              //     transitionBuilder: (child, animation) => ScaleTransition(
+              //       scale: animation,
+              //       child: child,
+              //     ),
+              //     child: Text(
+              //       count.toString(),
+              //       key: ValueKey<String>('count $count'),
+              //       style: const TextStyle(
+              //           fontSize: 40,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.blue),
+              //     ),
+              //   );
+              // }),
+            ],
           ),
         ),
       ),
